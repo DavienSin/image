@@ -17,7 +17,7 @@
 -(instancetype)init{
     self = [super init];
     if(self){
-        self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        self.scrollDirection = UICollectionViewScrollDirectionVertical;
         self.minimumInteritemSpacing = 0;
         self.minimumLineSpacing = 0;
     }

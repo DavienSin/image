@@ -12,6 +12,7 @@
 		09372E8E293C3E29003E1AA7 /* NSObject+Exception.m in Sources */ = {isa = PBXBuildFile; fileRef = 09372E8A293C3E29003E1AA7 /* NSObject+Exception.m */; };
 		09372E8F293C3E29003E1AA7 /* NSArry+Exception.m in Sources */ = {isa = PBXBuildFile; fileRef = 09372E8B293C3E29003E1AA7 /* NSArry+Exception.m */; };
 		09372E92293C3E6A003E1AA7 /* NSArray+Data.m in Sources */ = {isa = PBXBuildFile; fileRef = 09372E91293C3E6A003E1AA7 /* NSArray+Data.m */; };
+		093ADA202943736F0068788D /* ImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 093ADA1F2943736F0068788D /* ImageHelper.m */; };
 		0968F2F7293A4B9500AF121D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0968F2F6293A4B9500AF121D /* AppDelegate.m */; };
 		0968F2FA293A4B9500AF121D /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0968F2F9293A4B9500AF121D /* SceneDelegate.m */; };
 		0968F2FD293A4B9500AF121D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0968F2FC293A4B9500AF121D /* ViewController.m */; };
@@ -57,6 +58,8 @@
 		09372E8C293C3E29003E1AA7 /* NSDictionary+Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Exception.h"; sourceTree = "<group>"; };
 		09372E90293C3E6A003E1AA7 /* NSArray+Data.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+Data.h"; sourceTree = "<group>"; };
 		09372E91293C3E6A003E1AA7 /* NSArray+Data.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Data.m"; sourceTree = "<group>"; };
+		093ADA1E2943736F0068788D /* ImageHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageHelper.h; sourceTree = "<group>"; };
+		093ADA1F2943736F0068788D /* ImageHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageHelper.m; sourceTree = "<group>"; };
 		0968F2F2293A4B9500AF121D /* ImageCache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageCache.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0968F2F5293A4B9500AF121D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0968F2F6293A4B9500AF121D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -221,6 +224,8 @@
 			isa = PBXGroup;
 			children = (
 				09372E85293C3E1C003E1AA7 /* Extend */,
+				093ADA1E2943736F0068788D /* ImageHelper.h */,
+				093ADA1F2943736F0068788D /* ImageHelper.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -492,6 +497,7 @@
 				0968F2F7293A4B9500AF121D /* AppDelegate.m in Sources */,
 				0968F308293A4B9700AF121D /* main.m in Sources */,
 				09372E92293C3E6A003E1AA7 /* NSArray+Data.m in Sources */,
+				093ADA202943736F0068788D /* ImageHelper.m in Sources */,
 				09372E8F293C3E29003E1AA7 /* NSArry+Exception.m in Sources */,
 				09372E8D293C3E29003E1AA7 /* NSDictionary+Exception.m in Sources */,
 				092EB2F2293BC2B900FAE94F /* AACollectionView.m in Sources */,

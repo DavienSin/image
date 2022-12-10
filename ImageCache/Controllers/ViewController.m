@@ -12,6 +12,8 @@
 #import "DAException.h"
 #import "NSArray+Data.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#include <ImageIO/ImageIO.h>
+#include <Masonry/Masonry.h>
 #define kScreen [UIScreen mainScreen].bounds.size
 
 @interface AAModel :NSObject
@@ -28,6 +30,8 @@
 @property (nonatomic,strong,nullable) ALAsset *ala;
 #pragma clang diagnostic pop
 
+// 图片
+@property (nonatomic,strong) NSMutableDictionary *exif;
 
 @end
 
@@ -41,6 +45,7 @@
         _unDegradedimage = NULL;
         _pha = NULL;
         _ala = NULL;
+        _exif = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -72,13 +77,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    _headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50,30, kScreen.width-100, 300)];
-    [self.view addSubview:_headImageView];
+  //  _headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(50,30, kScreen.width-100, 300)];
+   // [self.view addSubview:_headImageView];
     
     [self loadImage];
     [self initCollection];
     
-
+    
 }
 
 // 读取相册全部图片
@@ -94,23 +99,43 @@
                 
         __weak typeof(self) weakSelf = self;
         PHImageManager *manager = [PHImageManager defaultManager];
+        PHImageRequestOptions *op = [[PHImageRequestOptions alloc] init];
+        op.version = PHImageRequestOptionsVersionOriginal;
+        op.resizeMode = PHImageRequestOptionsResizeModeNone;
         for (NSInteger i = 0; i < fetchResult.count; i++) {
-            [manager requestImageForAsset:fetchResult[i] targetSize:CGSizeMake(200, 150) contentMode:0 options:[PHImageRequestOptions new] resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+            [manager requestImageDataAndOrientationForAsset:fetchResult[i] options:op resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, CGImagePropertyOrientation orientation, NSDictionary * _Nullable info) {
                 AAModel *model = [[AAModel alloc] init];
-                if(info[@"PHImageResultIsDegradedKey"]){
-                    model.isEncode = NO;
-                    model.degradedimage = result;
-                }else{
-                    model.isEncode = YES;
-                    model.unDegradedimage = result;
-                }
-                model.pha = fetchResult[i];
+                UIImage *unDegradedimage = [UIImage imageWithData:imageData];
+                
+                model.exif[@"width"] = [NSNumber numberWithFloat:unDegradedimage.size.width];
+                model.exif[@"height"] = [NSNumber numberWithFloat:unDegradedimage.size.height];
+               
+                model.unDegradedimage = [UIImage imageWithData:imageData];
+                NSLog(@"exif-->%@",model.exif);
                 [self.imageCaches replaceObjectAtIndex:i withObject:model];
-           //     NSLog(@"%lu------->%@",i,info);
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.AACollectionView reloadData];
-                });
+                          //     NSLog(@"%lu------->%@",i,info);
+                               dispatch_async(dispatch_get_main_queue(), ^{
+                                   [weakSelf.AACollectionView reloadData];
+                               });
             }];
+        
+            
+//            [manager requestImageForAsset:fetchResult[i] targetSize:CGSizeMake(200, 150) contentMode:0 options:[PHImageRequestOptions new] resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+//                AAModel *model = [[AAModel alloc] init];
+//                if(info[@"PHImageResultIsDegradedKey"]){
+//                    model.isEncode = NO;
+//                    model.degradedimage = result;
+//                }else{
+//                    model.isEncode = YES;
+//                    model.unDegradedimage = result;
+//                }
+//                model.pha = fetchResult[i];
+//                [self.imageCaches replaceObjectAtIndex:i withObject:model];
+//           //     NSLog(@"%lu------->%@",i,info);
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [weakSelf.AACollectionView reloadData];
+//                });
+//            }];
         }
     }else
     {// 旧api
@@ -139,6 +164,8 @@
                       if(index < groups[i].numberOfAssets){
                             AAModel *m = [[AAModel alloc] init];
                             ALAssetRepresentation * representation = [result defaultRepresentation];
+                         //获取图片尺寸
+                          NSLog(@"%@",NSStringFromCGSize(representation.dimensions));
                             m.isEncode = YES;
                             m.degradedimage = [UIImage imageWithCGImage:[result thumbnail] scale:1.0 orientation:UIImageOrientationUp];
                             m.unDegradedimage = [UIImage imageWithCGImage:[representation fullScreenImage] scale:1.0 orientation:UIImageOrientationUp];
@@ -179,7 +206,7 @@
 
 // 初始化collectionview
 -(void)initCollection{
-    _AACollectionView = [[AACollectionView alloc] initWithFrame:CGRectMake(0, 350, kScreen.width, 200) collectionViewLayout:[UICollectionViewFlowLayout new]];
+    _AACollectionView = [[AACollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:[UICollectionViewFlowLayout new]];
     //view能否滑动
     _AACollectionView.scrollEnabled = YES;
     //为指定cell注册
@@ -187,21 +214,10 @@
     //加入主视图
     [self.view addSubview:_AACollectionView];
     
+    _AACollectionView.pagingEnabled = YES;
     //设置代理
     _AACollectionView.delegate = self;
     _AACollectionView.dataSource = self;
-}
-
-//复用每个cell的数据
--(__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *identifier = @"cid";
-    AACollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-    if (cell == nil) {
-           cell = [[AACollectionViewCell alloc] init];
-       }
-    cell.backgroundColor = [UIColor whiteColor];
-    cell.imageView.image = _imageCaches[indexPath.row].degradedimage;
-    return cell;
 }
 
 //指定section数量
@@ -214,15 +230,44 @@
     return _imageCaches.count;
 }
 
-//触发单击事件
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-    [self showHeadImageWithIndex:indexPath];
-   
+//复用每个cell的数据
+-(__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *identifier = @"cid";
+    AACollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    if (cell == nil) {
+           cell = [[AACollectionViewCell alloc] init];
+       }
+    cell.backgroundColor = [UIColor whiteColor];
+    return cell;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+    AACollectionViewCell *_cell = (AACollectionViewCell *)cell;
+    _cell.imageView.image = _imageCaches[indexPath.row].unDegradedimage;
+    
+    NSDictionary *exif = _imageCaches[indexPath.row].exif;
+    NSNumber *width = exif[@"width"];
+    NSNumber *height = exif[@"height"];
+    NSLog(@"%w:-->%f,h:-->%f",width.floatValue,height.floatValue);
+    [_cell.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.width.height.equalTo(_cell);
+      //  make.width.mas_equalTo(width.floatValue).priorityHigh();
+      //  make.height.mas_equalTo(height.floatValue).priorityHigh();
+      //  make.width.mas_equalTo(4000);
+      //  make.height.mas_equalTo(2800);
+    }];
+}
+
+
+//触发单击事件
+//-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+//    [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+//    [self showHeadImageWithIndex:indexPath];
+//
+//}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return CGSizeMake(200, 150);
+    return self.view.frame.size;
 }
 
 //@property(nonatomic,readonly,getter=isTracking)     BOOL tracking;        // returns YES if user has touched. may not yet have started dragging
