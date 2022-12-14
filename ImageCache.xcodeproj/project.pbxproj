@@ -13,6 +13,8 @@
 		09372E8F293C3E29003E1AA7 /* NSArry+Exception.m in Sources */ = {isa = PBXBuildFile; fileRef = 09372E8B293C3E29003E1AA7 /* NSArry+Exception.m */; };
 		09372E92293C3E6A003E1AA7 /* NSArray+Data.m in Sources */ = {isa = PBXBuildFile; fileRef = 09372E91293C3E6A003E1AA7 /* NSArray+Data.m */; };
 		093ADA202943736F0068788D /* ImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 093ADA1F2943736F0068788D /* ImageHelper.m */; };
+		0940B46629459C5800BEAC20 /* AANavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0940B46529459C5800BEAC20 /* AANavigationController.m */; };
+		0940B46929459CA000BEAC20 /* AATabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0940B46829459CA000BEAC20 /* AATabbarController.m */; };
 		0968F2F7293A4B9500AF121D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0968F2F6293A4B9500AF121D /* AppDelegate.m */; };
 		0968F2FA293A4B9500AF121D /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0968F2F9293A4B9500AF121D /* SceneDelegate.m */; };
 		0968F2FD293A4B9500AF121D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0968F2FC293A4B9500AF121D /* ViewController.m */; };
@@ -24,6 +26,9 @@
 		0968F31C293A4B9700AF121D /* ImageCacheUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0968F31B293A4B9700AF121D /* ImageCacheUITests.m */; };
 		0968F31E293A4B9700AF121D /* ImageCacheUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0968F31D293A4B9700AF121D /* ImageCacheUITestsLaunchTests.m */; };
 		0968F330293A603400AF121D /* AACollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0968F32F293A603400AF121D /* AACollectionViewCell.m */; };
+		097A774429497A9100B8FAC7 /* StorageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 097A774329497A9100B8FAC7 /* StorageHelper.m */; };
+		097A77482949803700B8FAC7 /* AAModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 097A77472949803700B8FAC7 /* AAModel.m */; };
+		09D15226294625A50053C83B /* UIDevice+VGAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D15225294625A50053C83B /* UIDevice+VGAddition.m */; };
 		3D71440CF1E68472C2E275E3 /* Pods_ImageCache_ImageCacheUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD835336DF4BE71E7FDC38B /* Pods_ImageCache_ImageCacheUITests.framework */; };
 		4FDEBFE5456DD0022B364F4F /* Pods_ImageCacheTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41C1F5AEE753325BA995E494 /* Pods_ImageCacheTests.framework */; };
 		E9790D61EACA80DC3CFC33D3 /* Pods_ImageCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F9D5A1F5767A521E7AA19E1 /* Pods_ImageCache.framework */; };
@@ -60,6 +65,10 @@
 		09372E91293C3E6A003E1AA7 /* NSArray+Data.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Data.m"; sourceTree = "<group>"; };
 		093ADA1E2943736F0068788D /* ImageHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageHelper.h; sourceTree = "<group>"; };
 		093ADA1F2943736F0068788D /* ImageHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageHelper.m; sourceTree = "<group>"; };
+		0940B46429459C5800BEAC20 /* AANavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AANavigationController.h; sourceTree = "<group>"; };
+		0940B46529459C5800BEAC20 /* AANavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AANavigationController.m; sourceTree = "<group>"; };
+		0940B46729459CA000BEAC20 /* AATabbarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AATabbarController.h; sourceTree = "<group>"; };
+		0940B46829459CA000BEAC20 /* AATabbarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AATabbarController.m; sourceTree = "<group>"; };
 		0968F2F2293A4B9500AF121D /* ImageCache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageCache.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0968F2F5293A4B9500AF121D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0968F2F6293A4B9500AF121D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -79,6 +88,12 @@
 		0968F31D293A4B9700AF121D /* ImageCacheUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageCacheUITestsLaunchTests.m; sourceTree = "<group>"; };
 		0968F32E293A603400AF121D /* AACollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AACollectionViewCell.h; sourceTree = "<group>"; };
 		0968F32F293A603400AF121D /* AACollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AACollectionViewCell.m; sourceTree = "<group>"; };
+		097A774229497A9100B8FAC7 /* StorageHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageHelper.h; sourceTree = "<group>"; };
+		097A774329497A9100B8FAC7 /* StorageHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StorageHelper.m; sourceTree = "<group>"; };
+		097A77462949803700B8FAC7 /* AAModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AAModel.h; sourceTree = "<group>"; };
+		097A77472949803700B8FAC7 /* AAModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AAModel.m; sourceTree = "<group>"; };
+		09D15224294625A40053C83B /* UIDevice+VGAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+VGAddition.h"; sourceTree = "<group>"; };
+		09D15225294625A50053C83B /* UIDevice+VGAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+VGAddition.m"; sourceTree = "<group>"; };
 		3CB9EDC97EEA25F5B5F8FF34 /* Pods-ImageCacheTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageCacheTests.debug.xcconfig"; path = "Target Support Files/Pods-ImageCacheTests/Pods-ImageCacheTests.debug.xcconfig"; sourceTree = "<group>"; };
 		41C1F5AEE753325BA995E494 /* Pods_ImageCacheTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageCacheTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC0467FE8597D21A0009B1E /* Pods-ImageCache-ImageCacheUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageCache-ImageCacheUITests.debug.xcconfig"; path = "Target Support Files/Pods-ImageCache-ImageCacheUITests/Pods-ImageCache-ImageCacheUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -128,6 +143,8 @@
 				09372E88293C3E28003E1AA7 /* NSDictionary+Exception.m */,
 				09372E87293C3E28003E1AA7 /* NSObject+Exception.h */,
 				09372E8A293C3E29003E1AA7 /* NSObject+Exception.m */,
+				09D15224294625A40053C83B /* UIDevice+VGAddition.h */,
+				09D15225294625A50053C83B /* UIDevice+VGAddition.m */,
 				09372E90293C3E6A003E1AA7 /* NSArray+Data.h */,
 				09372E91293C3E6A003E1AA7 /* NSArray+Data.m */,
 			);
@@ -159,6 +176,7 @@
 		0968F2F4293A4B9500AF121D /* ImageCache */ = {
 			isa = PBXGroup;
 			children = (
+				097A77452949801300B8FAC7 /* Model */,
 				0968F32D293A5CA300AF121D /* Tool */,
 				0968F32C293A4C1800AF121D /* Views */,
 				0968F32B293A4C0D00AF121D /* Controllers */,
@@ -205,6 +223,10 @@
 			children = (
 				0968F2FB293A4B9500AF121D /* ViewController.h */,
 				0968F2FC293A4B9500AF121D /* ViewController.m */,
+				0940B46429459C5800BEAC20 /* AANavigationController.h */,
+				0940B46529459C5800BEAC20 /* AANavigationController.m */,
+				0940B46729459CA000BEAC20 /* AATabbarController.h */,
+				0940B46829459CA000BEAC20 /* AATabbarController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -226,8 +248,19 @@
 				09372E85293C3E1C003E1AA7 /* Extend */,
 				093ADA1E2943736F0068788D /* ImageHelper.h */,
 				093ADA1F2943736F0068788D /* ImageHelper.m */,
+				097A774229497A9100B8FAC7 /* StorageHelper.h */,
+				097A774329497A9100B8FAC7 /* StorageHelper.m */,
 			);
 			path = Tool;
+			sourceTree = "<group>";
+		};
+		097A77452949801300B8FAC7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				097A77462949803700B8FAC7 /* AAModel.h */,
+				097A77472949803700B8FAC7 /* AAModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3509311E6B90A79C50894137 /* Pods */ = {
@@ -493,13 +526,18 @@
 			files = (
 				0968F330293A603400AF121D /* AACollectionViewCell.m in Sources */,
 				09372E8E293C3E29003E1AA7 /* NSObject+Exception.m in Sources */,
+				09D15226294625A50053C83B /* UIDevice+VGAddition.m in Sources */,
 				0968F2FD293A4B9500AF121D /* ViewController.m in Sources */,
 				0968F2F7293A4B9500AF121D /* AppDelegate.m in Sources */,
 				0968F308293A4B9700AF121D /* main.m in Sources */,
+				097A774429497A9100B8FAC7 /* StorageHelper.m in Sources */,
+				0940B46929459CA000BEAC20 /* AATabbarController.m in Sources */,
 				09372E92293C3E6A003E1AA7 /* NSArray+Data.m in Sources */,
 				093ADA202943736F0068788D /* ImageHelper.m in Sources */,
 				09372E8F293C3E29003E1AA7 /* NSArry+Exception.m in Sources */,
 				09372E8D293C3E29003E1AA7 /* NSDictionary+Exception.m in Sources */,
+				0940B46629459C5800BEAC20 /* AANavigationController.m in Sources */,
+				097A77482949803700B8FAC7 /* AAModel.m in Sources */,
 				092EB2F2293BC2B900FAE94F /* AACollectionView.m in Sources */,
 				0968F2FA293A4B9500AF121D /* SceneDelegate.m in Sources */,
 			);

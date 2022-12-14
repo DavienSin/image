@@ -6,6 +6,9 @@
 //
 
 #import "SceneDelegate.h"
+#import "AATabbarController.h"
+#import "AANavigationController.h"
+#import "ViewController.h"
 
 @interface SceneDelegate ()
 
@@ -18,6 +21,40 @@
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+    
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    if([userDefault valueForKey:@"hasCache"] == nil){
+        [[NSUserDefaults standardUserDefaults] setValue:@"no" forKey:@"hasCache"];
+    }
+    
+    UIWindowScene *windowScene = (UIWindowScene *)scene;
+    UIWindow *window = [[UIWindow alloc] initWithWindowScene:windowScene];
+    
+    ViewController *vc = [[ViewController alloc] init];
+    AANavigationController *nav = [[AANavigationController alloc] initWithRootViewController:vc];
+    UITabBarItem *item = [[UITabBarItem alloc] initWithTitle:@"list" image:nil tag:0];
+    nav.tabBarItem = item;
+    //item.badgeValue = @"77+";
+   // nav.navigationBar.translucent = NO;
+    
+    
+    AATabbarController *tabbar = [[AATabbarController alloc] init];
+  //  tabbar.tabb
+    tabbar.viewControllers = @[nav];
+    
+    _window = window;
+    _window.rootViewController = tabbar;
+    
+    
+    
+    [_window makeKeyAndVisible];
+    
+    
+    
+    NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:vc selector:@selector(checkHasNewAsset) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop currentRunLoop] run];
+    
 }
 
 

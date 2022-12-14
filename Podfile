@@ -7,6 +7,7 @@ target 'ImageCache' do
 
   # Pods for ImageCache
 	pod 'Masonry'
+  pod 'MJRefresh', '~> 3.7.5'
   target 'ImageCacheTests' do
     inherit! :search_paths
     # Pods for testing
