@@ -43,93 +43,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-  
-    [self loadCacheImage];
     
-    StorageHelper *storage = [[StorageHelper alloc] init];
-//    AAStorage *s = [[AAStorage alloc] init];
-//    s.pha = @[];
+    [self readImageCache];
     
-    ImageHelper *helper = [ImageHelper defaultHelper];
-    PHFetchOptions *op = [[PHFetchOptions alloc] init];
-    op.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-    PHFetchResult  *fetchResult = [helper fetchAllAssetDataUsingPha:op mediaType:1];
-    
-    
-//    [storage writeImageInCache:@{@"pha":fetchResult} resultBlock:^{
-//        NSLog(@"write success");
-//
-//        [storage readImageInCache:^(AAStorage * _Nonnull result, NSError * _Nonnull err) {
-//            if(err){
-//                NSLog(@"%@",err);
-//            }else{
-//                NSLog(@"%@",[result.pha class]);
-//                //
-//            }
-//        }];
-//    }];
-  //  [self initCollection];
-   // [self addAssetChangeObserver];
-    
+  //  [self loadCacheImage];
+   // [self initCollection];
 }
 
 // 读取相册全部图片
 -(void)loadCacheImage{
     NSString *hasCache = [[NSUserDefaults standardUserDefaults] valueForKey:@"hasCache"];
-    ImageHelper *imageHelper = [ImageHelper defaultHelper];
-    StorageHelper *storageHelper = [[StorageHelper alloc] init];
     //判断有无图片缓存
     if([hasCache isEqualToString:@"no"]){ //没有
         [self fetchAllAsset];
     }else{
-        if(@available(iOS 9,*)){ //有
-            
-        }else{
-            
-        }
+        [self readImageCache];
     }
-    
-    
-    
-//    // 新api
-//    ImageHelper *helper = [ImageHelper defaultHelper];
-//   // if(@available(iOS 9,*)){
-//    if(NO){
-//        PHFetchResult  *fetchResult = [self fetchAllAsset][@"pha"];
-//        _imageCaches = [NSMutableArray arrayInCount:fetchResult.count fill:[AAModel new]];
-//
-//        PHImageRequestOptions *rop = [[PHImageRequestOptions alloc] init];
-//        rop.version = PHImageRequestOptionsVersionOriginal;
-//        rop.resizeMode = PHImageRequestOptionsResizeModeNone;
-//        __weak typeof(self) weakSelf = self;
-//
-//        for (NSInteger i = 0; i < fetchResult.count; i++) {
-//            [helper fetchAssetDataUsingPha:fetchResult[i] options:rop resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, CGImagePropertyOrientation orientation, NSDictionary * _Nullable info) {
-//                AAModel *model = [[AAModel alloc] init];
-//                UIImage *unDegradedimage = [UIImage imageWithData:imageData];
-//
-//                model.unDegradedimage = [UIImage imageWithData:imageData];
-//              //  NSLog(@"exif-->%@",model.exif);
-//                [weakSelf.imageCaches replaceObjectAtIndex:i withObject:model];
-//                //     NSLog(@"%lu------->%@",i,info);
-//                [weakSelf.AACollectionView reloadData];
-//            }];
-//        }
-//    }else
-//    {// 旧api
-//        // 这部分使用到的过期api
-//        //避免在枚举出 AssetsLibrary 中所需要的数据后，AssetsLibrary 就被 ARC 释放了
-//
-//        [helper fetchAllAssetUsingAla:^(ALAssetsGroup * _Nonnull groups) {
-//            NSLog(@"%@",[NSThread currentThread]);
-//            NSLog(@"------>%lu",groups.numberOfAssets);
-//        }];
-//        NSLog(@"afterhello");
-//
-//
-//
-//
-//   }
 }
 
 // 初始化collectionview
@@ -171,16 +100,13 @@
     if (cell == nil) {
            cell = [[AACollectionViewCell alloc] init];
        }
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor grayColor];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
     AACollectionViewCell *_cell = (AACollectionViewCell *)cell;
-  //  _cell.imageView.image = _imageCaches[indexPath.row].unDegradedimage;
-    
-    //NSDictionary *exif = _imageCaches[indexPath.row].exif;
-   // NSLog(@"%w:-->%f,h:-->%f",width.floatValue,height.floatValue);
+    _cell.imageView.image = [UIImage imageWithData:_imageCaches[indexPath.row]];
     [_cell.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.width.height.equalTo(_cell);
     }];
@@ -196,68 +122,76 @@
     
     ImageHelper *imageHelper = [ImageHelper defaultHelper];
     StorageHelper *storageHelper = [[StorageHelper alloc] init];
+    
+    __weak typeof(self) weakSelf = self;
     if(@available(iOS 9,*)){
         PHFetchOptions *op = [[PHFetchOptions alloc] init];
         op.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
         PHFetchResult  *fetchResult = [imageHelper fetchAllAssetDataUsingPha:op mediaType:1];
-        _imageCaches = [NSMutableArray array];
-    
+        
         PHImageRequestOptions *rop = [[PHImageRequestOptions alloc] init];
         rop.version = PHImageRequestOptionsVersionOriginal;
         rop.resizeMode = PHImageRequestOptionsResizeModeNone;
-        
-        __weak typeof(self) weakSelf = self;
-        NSMutableArray *operationArr = [NSMutableArray array];
-        for (PHAsset *obj in fetchResult) { // 这里会创建太多线程，待优化
-            NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
-                dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-                [imageHelper fetchAssetDataUsingPha:obj options:rop resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, CGImagePropertyOrientation orientation, NSDictionary * _Nullable info) {
-                    [weakSelf.imageCaches addObject:imageData];
-                    NSLog(@"here");
-                    dispatch_semaphore_signal(sema);
-                }];
-                dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-            }];
-            [operationArr addObject:op];
-        }
-        
-        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-        queue.maxConcurrentOperationCount = 5;
-        [queue addOperations:operationArr waitUntilFinished:NO];
-        [queue addBarrierBlock:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.AACollectionView reloadData];
-            });
+        rop.synchronous = YES;
+        [imageHelper fetchAssetDataUsingPha:fetchResult options:rop resultHandler:^(NSArray<NSData *> * _Nonnull imageData) {
+            weakSelf.imageCaches = [imageData mutableCopy];
+            [weakSelf.AACollectionView reloadData];
+            [weakSelf.AACollectionView.mj_header endRefreshing];
+            
+            [storageHelper cleanImageCache];
             [storageHelper writeImageInCache:weakSelf.imageCaches resultBlock:^{
-                NSLog(@"write image data success");
+                NSLog(@"write success");
             }];
-       }];
+        }];
     }else{
-        
+        [imageHelper fetchAllAssetDataUsingAla:nil resultBlock:^(NSArray<NSData *> * _Nonnull imageData) {
+            weakSelf.imageCaches = [imageData mutableCopy];
+            [weakSelf.AACollectionView reloadData];
+            [weakSelf.AACollectionView.mj_header endRefreshing];
+            
+            [storageHelper cleanImageCache];
+            [storageHelper writeImageInCache:weakSelf.imageCaches resultBlock:^{
+                NSLog(@"write success");
+            }];
+        }];;
     }
+    
+    
+}
+
+-(void)readImageCache{
+    StorageHelper *helper = [[StorageHelper alloc] init];
+    __weak typeof(self) weakSelf = self;
+    
+    [helper readImageInCache:^(AAModel * _Nonnull result, NSError * _Nonnull err) {
+        weakSelf.imageCaches = [result.imageData mutableCopy];
+        [weakSelf initCollection];
+    }];
 }
 
 -(void)checkHasNewAsset{
     __block NSInteger count = 0;
     __weak typeof(self) weakSelf = self;
     ImageHelper *helper = [ImageHelper defaultHelper];
- //   if(NO){
+ //  if(NO){
     if(@available(iOS 9,*)){
         PHFetchOptions *op = [[PHFetchOptions alloc] init];
         op.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
         PHFetchResult *result = [helper fetchAllAssetDataUsingPha:op mediaType:1];
-        count = result.count;
+        if(result.count > _imageCaches.count){
+            count = result.count - weakSelf.imageCaches.count;
         self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",count];
+        }
     }else{
         [helper fetchAllAssetUsingAla:^(ALAssetsGroup * _Nonnull groups) {
-            count = groups.numberOfAssets;
-            if(count > weakSelf.imageCaches.count){
-                count = count - weakSelf.imageCaches.count;
+            if(groups.numberOfAssets > weakSelf.imageCaches.count){
+                count = groups.numberOfAssets - weakSelf.imageCaches.count;
+                self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",count];
             }
-            self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",count];
         }];
     }
     NSLog(@"finish checkHasNewAsset");
+    //读写功能已完成，10秒监听是否更新也完成，现有问题，加载datasource后视图无任何显示
 }
 
 

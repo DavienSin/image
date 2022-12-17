@@ -6,6 +6,7 @@
 //
 
 #import "ImageHelper.h"
+#include <UIKit/UIImage.h>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -28,52 +29,23 @@
     return result;
 }
 
--(void)fetchAssetDataUsingPha:(PHAsset *)asset options:(PHImageRequestOptions *)options resultHandler:(void (^)(NSData * _Nullable, NSString * _Nullable, CGImagePropertyOrientation, NSDictionary * _Nullable))resultHandler{
+- (void)fetchAssetDataUsingPha:(PHFetchResult *)fetchResult options:(PHImageRequestOptions *)options resultHandler:(void (^)(NSArray<NSData *> * _Nonnull))resultHandler{
     PHImageManager *manager = [PHImageManager defaultManager];
-    [manager requestImageDataAndOrientationForAsset:asset options:options resultHandler:resultHandler];
+    
+    __block NSMutableArray *arr = [NSMutableArray array];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        for (PHAsset *asset in fetchResult) {
+            [manager requestImageDataAndOrientationForAsset:asset options:options resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, CGImagePropertyOrientation orientation, NSDictionary * _Nullable info) {
+                [arr addObject:imageData];
+            }];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            resultHandler(arr);
+        });
+    });
+    
 }
 
-
-//- (NSDictionary *)fetchAllAsset{
-//    if(NO){
-//    //if(@available(iOS 9,*)){
-//        PHFetchOptions *fop = [[PHFetchOptions alloc] init];
-//        //ascending 为YES时，按照照片的创建时间升序排列;为NO时，则降序排列
-//        fop.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-//        PHFetchResult  *fetchResult = [self fetchAllAssetDataUsingPha:fop mediaType:1];
-//        return @{@"pha":fetchResult};
-//    }else{
-//      //  __block ALAssetsGroup *groups = nil;
-//        __weak typeof(self) weakSelf = self;
-//        _library = [[ALAssetsLibrary alloc] init];
-//
-//        NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
-//            dispatch_semaphore_t sema = dispatch_semaphore_create(0);
-//            [_library enumerateGroupsWithTypes:ALAssetsGroupAlbum usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-//                [group setAssetsFilter:[ALAssetsFilter allPhotos]];
-//                NSLog(@"%@",[group valueForProperty:ALAssetsGroupPropertyName]);
-//                if([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:@"Recents"]){
-//                    NSLog(@"%lu",group.numberOfAssets);
-//                    dispatch_semaphore_signal(sema);
-//                }
-//            } failureBlock:^(NSError *error) {
-//
-//            }];
-//            dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
-//        }];
-//
-//
-//        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-//        [queue addOperations:@[op] waitUntilFinished:NO];
-//        [queue addBarrierBlock:^{
-//            NSLog(@"fin");
-//            //return @{@"ala":@[]};
-//        }];
-//
-//
-//
-//    }
-//}
 
 -(void)fetchAllAssetUsingAla:(void (^)(ALAssetsGroup *groups))resultBlock{
     __block ALAssetsGroup *_group = nil;
@@ -82,10 +54,8 @@
     NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
         dispatch_semaphore_t sema = dispatch_semaphore_create(0);
         [weakSelf.library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-            //[group setAssetsFilter:[ALAssetsFilter allPhotos]];
-           // NSLog(@">>>>>%@",[group valueForProperty:ALAssetsGroupPropertyName]);
             if([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:@"Recents"]){
-                NSLog(@"%lu",group.numberOfAssets);
+              //  NSLog(@"%lu",group.numberOfAssets);
                 _group = group;
             }
             dispatch_semaphore_signal(sema);
@@ -103,12 +73,62 @@
     [queue addBarrierBlock:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             resultBlock(_group);
+            
+//            [self fetchAllAssetDataUsingAla:_group resultBlock:^(NSArray<NSData *> * _Nonnull imageData) {
+//                NSLog(@"%@",imageData);
+//            }];
         });
     }];
-    NSLog(@"ffff");
+    NSLog(@"fetch all ala group");
 
 }
 
+-(NSData *)transformCGIToData:(CGImageRef)image{
+    UIImage *_image = [UIImage imageWithCGImage:image];
+    return UIImageJPEGRepresentation(_image,1);
+}
+
+- (void)fetchAssetDataUsingAla:(ALAssetsGroup *)group resultBlock:(void (^)(NSData * _Nonnull))resultBlock{
+        [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+            ALAssetRepresentation * representation = [result defaultRepresentation];
+            resultBlock([self transformCGIToData:[representation fullScreenImage]]);
+        }];
+}
+
+- (void)fetchAllAssetDataUsingAla:(nullable ALAssetsGroup *)group resultBlock:(void (^)(NSArray<NSData *> * _Nonnull))resultBlock{
+    __block NSMutableArray <NSData *> *arr = [NSMutableArray array];
+  //  _library = [[ALAssetsLibrary alloc] init];
+    __block ALAssetsGroup *_group = nil;
+    
+    __weak typeof(self) weakSelf = self;
+    
+    NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
+        dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+        [weakSelf.library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+            if([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:@"Recents"]){
+                _group = group;
+            }
+            dispatch_semaphore_signal(sema);
+      } failureBlock:^(NSError *error) {
+            dispatch_semaphore_signal(sema);
+        }];
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    }];
+
+
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    [queue addOperations:@[op] waitUntilFinished:NO];
+    [queue addBarrierBlock:^{
+        [self fetchAssetDataUsingAla:_group resultBlock:^(NSData * _Nonnull imageData) {
+            if(imageData){
+                [arr addObject:imageData];
+            }
+        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            resultBlock(arr);
+        });
+    }];
+}
 
 
 

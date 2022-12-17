@@ -7,214 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3C1A6E4F-88DD-48BD-BE98-629DE4C80C25"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ImageCache/Controllers/ViewController.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "-loadCacheImage"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F47FB4EC-C8F7-47F4-B376-AF54BF112229"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ImageCache/Controllers/ViewController.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "-loadCacheImage"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D9D04C1D-6755-413A-B65E-8C5BC398CE01"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ImageCache/Tool/ImageHelper.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "ImageHelper"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5BF418EC-897A-492A-8875-DA0DF6EDB7A1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ImageCache/Tool/ImageHelper.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "ImageHelper"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "747F5C21-7003-42B0-BA2C-88B51BF23C30"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ImageCache/Tool/ImageHelper.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "ImageHelper"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7BBD4087-4668-455F-9AB0-3CF1151F0022"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ImageCache/Tool/ImageHelper.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "ImageHelper"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "7BBD4087-4668-455F-9AB0-3CF1151F0022 - a49fc82cd12883b5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__28-[ImageHelper fetchAllAsset]_block_invoke"
-                  moduleName = "ImageCache"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/davien/Documents/ImageCache/ImageCache/Tool/ImageHelper.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "41">
-               </Location>
-               <Location
-                  uuid = "7BBD4087-4668-455F-9AB0-3CF1151F0022 - 8535ff998da9caeb"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__28-[ImageHelper fetchAllAsset]_block_invoke_2"
-                  moduleName = "ImageCache"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/davien/Documents/ImageCache/ImageCache/Tool/ImageHelper.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "53"
-                  endingLineNumber = "53"
-                  offsetFromSymbolStart = "53">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CBAA1CDE-E3F0-4047-9750-AFB8ED1B235C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ImageCache/Tool/ImageHelper.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "ImageHelper"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "CBAA1CDE-E3F0-4047-9750-AFB8ED1B235C - dfb276635d9e759"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ImageHelper fetchAllAsset]"
-                  moduleName = "ImageCache"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/davien/Documents/ImageCache/ImageCache/Tool/ImageHelper.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "50"
-                  endingLineNumber = "50"
-                  offsetFromSymbolStart = "98">
-               </Location>
-               <Location
-                  uuid = "CBAA1CDE-E3F0-4047-9750-AFB8ED1B235C - a49fc82cd1288394"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__28-[ImageHelper fetchAllAsset]_block_invoke"
-                  moduleName = "ImageCache"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/davien/Documents/ImageCache/ImageCache/Tool/ImageHelper.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "51"
-                  endingLineNumber = "51"
-                  offsetFromSymbolStart = "20">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "39E02B22-EA74-491B-BE6C-CBE198C8BB7E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ImageCache/Tool/ImageHelper.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "ImageHelper"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "49831AAB-9C06-4623-948A-6D506B52168B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ImageCache/Tool/ImageHelper.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "-fetchAllAssetUsingAla:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "D36C50A8-E7CB-4E7D-A593-8FFFE5DCC574"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -222,8 +14,8 @@
             filePath = "ImageCache/Tool/ImageHelper.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "-fetchAllAssetUsingAla:"
             landmarkType = "7">
          </BreakpointContent>
@@ -232,7 +24,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "89D2208C-6B97-4EA9-8270-39562617F077"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ImageCache/Tool/StorageHelper.m"
@@ -247,143 +39,111 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9B96B774-F3CD-40F9-9003-BF2A1B2C2B20"
+            uuid = "FF8EB118-C586-4814-84FC-344D13C08600"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ImageCache/Controllers/ViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "-loadCacheImage"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A5F25A47-3E3E-4182-88AB-566BB61C64EF"
-            shouldBeEnabled = "No"
+            uuid = "3A9C2B25-E7D0-41EC-8E6E-9A5677016BE4"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ImageCache/Controllers/ViewController.m"
+            filePath = "ImageCache/Tool/StorageHelper.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "-writeImageInCache:resultBlock:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FBA5C9C2-00E5-4CE6-960E-670B9177837D"
-            shouldBeEnabled = "No"
+            uuid = "0B729B9C-D256-447C-A74F-907CAF6AD17A"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ImageCache/Controllers/ViewController.m"
+            filePath = "ImageCache/Tool/StorageHelper.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "-writeImageInCache:resultBlock:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D188FA98-D49E-4904-9684-02C0230BC76A"
-            shouldBeEnabled = "No"
+            uuid = "0393DBB6-8D00-4578-B3E8-FFB4A7A35463"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ImageCache/Controllers/ViewController.m"
+            filePath = "ImageCache/Tool/StorageHelper.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "-fetchAllAsset"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "-writeImageInCache:resultBlock:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C400BF09-E418-4E07-AC34-2F705C5DD671"
+            uuid = "EC20BEA1-3111-4FD1-A251-001A16A26072"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ImageCache/Controllers/ViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
-            landmarkName = "-fetchAllAsset"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5D54D296-9E9C-4211-A1D0-978BA090602C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ImageCache/Controllers/ViewController.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
-            landmarkName = "-fetchAllAsset"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "101C9EBB-87B3-443E-8D9A-B82C6BA2D307"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ImageCache/Controllers/ViewController.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "-fetchAllAsset"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "101C9EBB-87B3-443E-8D9A-B82C6BA2D307 - 27c9105f28cf4d8b"
+                  uuid = "EC20BEA1-3111-4FD1-A251-001A16A26072 - dfcdc27388ffaf5"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[ViewController fetchAllAsset]"
+                  symbolName = "__31-[ViewController fetchAllAsset]_block_invoke"
                   moduleName = "ImageCache"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/davien/Documents/ImageCache/ImageCache/Controllers/ViewController.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "224"
-                  endingLineNumber = "224"
-                  offsetFromSymbolStart = "1293">
+                  startingLineNumber = "142"
+                  endingLineNumber = "142"
+                  offsetFromSymbolStart = "359">
                </Location>
                <Location
-                  uuid = "101C9EBB-87B3-443E-8D9A-B82C6BA2D307 - 27c9105f28cf4d8b"
+                  uuid = "EC20BEA1-3111-4FD1-A251-001A16A26072 - 351e8d4305cf1a3b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[ViewController fetchAllAsset]"
+                  symbolName = "__31-[ViewController fetchAllAsset]_block_invoke_2"
                   moduleName = "ImageCache"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/davien/Documents/ImageCache/ImageCache/Controllers/ViewController.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "224"
-                  endingLineNumber = "224"
-                  offsetFromSymbolStart = "1344">
+                  startingLineNumber = "143"
+                  endingLineNumber = "143"
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -391,49 +151,113 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1D4CB90C-8044-4F8D-A54C-C425EF9E8AD8"
+            uuid = "AE19BA2B-AB0D-4A3C-852F-2531C28C25F0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImageCache/Controllers/ViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "-fetchAllAsset"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "AE19BA2B-AB0D-4A3C-852F-2531C28C25F0 - 90819e76e372d0b3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__31-[ViewController fetchAllAsset]_block_invoke.133"
+                  moduleName = "ImageCache"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/davien/Documents/ImageCache/ImageCache/Controllers/ViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "153"
+                  endingLineNumber = "153"
+                  offsetFromSymbolStart = "359">
+               </Location>
+               <Location
+                  uuid = "AE19BA2B-AB0D-4A3C-852F-2531C28C25F0 - 6ba62dadd3a0836c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__31-[ViewController fetchAllAsset]_block_invoke_2.134"
+                  moduleName = "ImageCache"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/davien/Documents/ImageCache/ImageCache/Controllers/ViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "154"
+                  endingLineNumber = "154"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "41E6A15E-0E18-4D2E-8382-6A24789BCBE8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ImageCache/Controllers/ViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "-fetchAllAsset"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "-readImageCache"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1D4CB90C-8044-4F8D-A54C-C425EF9E8AD8 - 27c9105f28cf4d17"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[ViewController fetchAllAsset]"
-                  moduleName = "ImageCache"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/davien/Documents/ImageCache/ImageCache/Controllers/ViewController.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "228"
-                  endingLineNumber = "228"
-                  offsetFromSymbolStart = "1594">
-               </Location>
-               <Location
-                  uuid = "1D4CB90C-8044-4F8D-A54C-C425EF9E8AD8 - 90819e76f342c045"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__31-[ViewController fetchAllAsset]_block_invoke.121"
-                  moduleName = "ImageCache"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/davien/Documents/ImageCache/ImageCache/Controllers/ViewController.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "228"
-                  endingLineNumber = "228"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A7056F59-1B08-4703-AC1D-522BF218542E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImageCache/Controllers/ViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "-collectionView:cellForItemAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "32024526-0DD0-4343-82FB-9FDB3E8B2AF6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImageCache/Controllers/ViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "-readImageCache"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "584EB9A3-F02E-4691-93E8-ECA883DFE3F9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImageCache/Controllers/ViewController.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "-initCollection"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

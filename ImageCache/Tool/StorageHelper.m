@@ -47,12 +47,18 @@
 }
 
 - (void)readImageInCache:(void (^)(AAModel *result,NSError *err))resultBlock{
-    NSData *objectData = [NSData dataWithContentsOfFile:[self cachePath]];
-    NSError *err = nil;
-    //基本类型归档可用unarchivedObjectOfClasse，但涉及到自定义类的必须用unarchivedObjectOfClasses+自定义类里边所有数据类型的class
-    NSSet *classSet = [NSSet setWithObjects:[NSArray class],[AAModel class],[NSData class], nil];
-    AAModel *result =  [NSKeyedUnarchiver unarchivedObjectOfClasses:classSet fromData:objectData error:&err];
-    resultBlock(result,err);
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSData *objectData = [NSData dataWithContentsOfFile:[self cachePath]];
+        NSError *err = nil;
+        //基本类型归档可用unarchivedObjectOfClasse，但涉及到自定义类的必须用unarchivedObjectOfClasses+自定义类里边所有数据类型的class
+        NSSet *classSet = [NSSet setWithObjects:[NSArray class],[AAModel class],[NSData class], nil];
+        AAModel *result =  [NSKeyedUnarchiver unarchivedObjectOfClasses:classSet fromData:objectData error:&err];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            resultBlock(result,err);
+        });
+    });
 }
 
 

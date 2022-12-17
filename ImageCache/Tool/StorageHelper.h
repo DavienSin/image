@@ -1,6 +1,6 @@
 //
 //  StorageHelper.h
-//  ImageCache
+//  ImageCache   读写图片信息缓存类
 //
 //  Created by Davien Sin on 2022/12/14.
 //
