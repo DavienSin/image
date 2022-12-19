@@ -43,16 +43,44 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
-    if([self checkAuthStatus]){
-        
-        _imageCaches = [NSMutableArray array];
-        [self initCollection];
-        [self loadCacheImage];
+    _imageCaches = [NSMutableArray array];
+    [self initCollection];
+    
+    if(![self checkAuthStatus]){
+        [self requestImageAuth];
     }
+    
+    if([self checkAuthStatus]){
+        [self loadCacheImage];
+    }else{
+        NSLog(@"没授权");
+    }
+    
+    
+    
     
   //  [self readImageCache];
    // [self initCollection];
 }
+
+-(void)requestImageAuth{
+    if(@available(iOS 14,*)){//version>14
+        return [PHPhotoLibrary requestAuthorizationForAccessLevel:PHAccessLevelReadWrite handler:^(PHAuthorizationStatus status) {
+            
+        }];
+    }else if(@available(iOS 8,*)){// 14 > version > 8
+        return [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            
+        }];
+    }else{ // version < 8
+        ImageHelper *imageHelper = [ImageHelper defaultHelper];
+        [imageHelper fetchAllAssetUsingAla:^(ALAssetsGroup * _Nonnull groups) {
+            
+        }];
+    }
+}
+
+
 
 -(BOOL)checkAuthStatus{
     if(@available(iOS 14,*)){//version>14
@@ -147,42 +175,46 @@
     StorageHelper *storageHelper = [[StorageHelper alloc] init];
     
     __weak typeof(self) weakSelf = self;
-    if(@available(iOS 9,*)){
-        PHFetchOptions *op = [[PHFetchOptions alloc] init];
-        op.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-        PHFetchResult  *fetchResult = [imageHelper fetchAllAssetDataUsingPha:op mediaType:1];
-        
-        PHImageRequestOptions *rop = [[PHImageRequestOptions alloc] init];
-        rop.version = PHImageRequestOptionsVersionOriginal;
-        rop.resizeMode = PHImageRequestOptionsResizeModeNone;
-        rop.synchronous = YES;
-        [imageHelper fetchAssetDataUsingPha:fetchResult options:rop resultHandler:^(NSArray<NSData *> * _Nonnull imageData) {
-            weakSelf.imageCaches = [imageData mutableCopy];
-            [weakSelf.AACollectionView reloadData];
-            [weakSelf.AACollectionView.mj_header endRefreshing];
-            [storageHelper cleanImageCache];
-            weakSelf.navigationController.tabBarItem.badgeValue = nil;
-            [storageHelper writeImageInCache:weakSelf.imageCaches resultBlock:^{
-                [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasCache"];
-                NSLog(@"pha--->write success");
-            }];
-        }];
-    }else{
-        [imageHelper fetchAllAssetDataUsingAla:nil resultBlock:^(NSArray<NSData *> * _Nonnull imageData) {
-            weakSelf.imageCaches = [imageData mutableCopy];
-            [weakSelf.AACollectionView reloadData];
-            [weakSelf.AACollectionView.mj_header endRefreshing];
+    
+    if([self checkAuthStatus]){
+        if(@available(iOS 9,*)){
+            PHFetchOptions *op = [[PHFetchOptions alloc] init];
+            op.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+            PHFetchResult  *fetchResult = [imageHelper fetchAllAssetDataUsingPha:op mediaType:1];
             
-            [storageHelper cleanImageCache];
-            [storageHelper writeImageInCache:weakSelf.imageCaches resultBlock:^{
-                NSLog(@"Ala--->write success");
-                [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasCache"];
+            PHImageRequestOptions *rop = [[PHImageRequestOptions alloc] init];
+            rop.version = PHImageRequestOptionsVersionOriginal;
+            rop.resizeMode = PHImageRequestOptionsResizeModeNone;
+            rop.synchronous = YES;
+            [imageHelper fetchAssetDataUsingPha:fetchResult options:rop resultHandler:^(NSArray<NSData *> * _Nonnull imageData) {
+                weakSelf.imageCaches = [imageData mutableCopy];
+                [weakSelf.AACollectionView reloadData];
+                [weakSelf.AACollectionView.mj_header endRefreshing];
+                [storageHelper cleanImageCache];
                 weakSelf.navigationController.tabBarItem.badgeValue = nil;
+                [storageHelper writeImageInCache:weakSelf.imageCaches resultBlock:^{
+                    [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasCache"];
+                    NSLog(@"pha--->write success");
+                }];
             }];
-        }];;
+        }else{
+            [imageHelper fetchAllAssetDataUsingAla:nil resultBlock:^(NSArray<NSData *> * _Nonnull imageData) {
+                weakSelf.imageCaches = [imageData mutableCopy];
+                [weakSelf.AACollectionView reloadData];
+                [weakSelf.AACollectionView.mj_header endRefreshing];
+                
+                [storageHelper cleanImageCache];
+                [storageHelper writeImageInCache:weakSelf.imageCaches resultBlock:^{
+                    NSLog(@"Ala--->write success");
+                    [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasCache"];
+                    weakSelf.navigationController.tabBarItem.badgeValue = nil;
+                }];
+            }];;
+        }
+    }else{
+        [_AACollectionView.mj_header endRefreshing];
+        NSLog(@"没授权");
     }
-    
-    
 }
 
 -(void)readImageCache{
@@ -193,6 +225,7 @@
         weakSelf.imageCaches = [result.imageData mutableCopy];
         [weakSelf initCollection];
     }];
+    
 }
 
 -(void)checkHasNewAsset{
@@ -200,22 +233,29 @@
     __weak typeof(self) weakSelf = self;
     ImageHelper *helper = [ImageHelper defaultHelper];
  //  if(NO){
-    if(@available(iOS 9,*)){
-        PHFetchOptions *op = [[PHFetchOptions alloc] init];
-        op.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-        PHFetchResult *result = [helper fetchAllAssetDataUsingPha:op mediaType:1];
-        if(result.count > _imageCaches.count){
-            count = result.count - weakSelf.imageCaches.count;
-        self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",count];
+    
+    if([self checkAuthStatus]){
+        if(@available(iOS 9,*)){
+            PHFetchOptions *op = [[PHFetchOptions alloc] init];
+            op.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+            PHFetchResult *result = [helper fetchAllAssetDataUsingPha:op mediaType:1];
+            if(result.count > _imageCaches.count){
+                count = result.count - weakSelf.imageCaches.count;
+            self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",count];
+            }
+        }else{
+            [helper fetchAllAssetUsingAla:^(ALAssetsGroup * _Nonnull groups) {
+                if(groups.numberOfAssets > weakSelf.imageCaches.count){
+                    count = groups.numberOfAssets - weakSelf.imageCaches.count;
+                    self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",count];
+                }
+            }];
         }
     }else{
-        [helper fetchAllAssetUsingAla:^(ALAssetsGroup * _Nonnull groups) {
-            if(groups.numberOfAssets > weakSelf.imageCaches.count){
-                count = groups.numberOfAssets - weakSelf.imageCaches.count;
-                self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",count];
-            }
-        }];
+        NSLog(@"没授权");
     }
+    
+    
     NSLog(@"finish checkHasNewAsset");
 }
 

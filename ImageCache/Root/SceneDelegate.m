@@ -51,7 +51,7 @@
     
     
     //  加入定时器到runloop会卡住视图
-    NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:vc selector:@selector(checkHasNewAsset) userInfo:nil repeats:YES];
+    NSTimer *timer = [NSTimer timerWithTimeInterval:5 target:vc selector:@selector(checkHasNewAsset) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
    // 在currentRunLoop执行run会阻塞线程
    // [[NSRunLoop currentRunLoop] run];
