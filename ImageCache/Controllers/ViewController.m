@@ -18,7 +18,6 @@
 #import "StorageHelper.h"
 #import "UIDevice+VGAddition.h"
 #include <MJRefresh/MJRefresh.h>
-#define kScreen [UIScreen mainScreen].bounds.size
 
 
 #pragma clang diagnostic push
@@ -44,10 +43,9 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self readImageCache];
+  //  [self readImageCache];
     
-  //  [self loadCacheImage];
-   // [self initCollection];
+    [self loadCacheImage];
 }
 
 // 读取相册全部图片
@@ -59,10 +57,12 @@
     }else{
         [self readImageCache];
     }
+
 }
 
 // 初始化collectionview
 -(void)initCollection{
+    NSLog(@"---------->%@",_imageCaches);
     CGFloat y = [UIDevice vg_navigationFullHeight];
     CGFloat h = [UIDevice vg_tabBarFullHeight];
     
@@ -90,7 +90,8 @@
 
 //指定单个section的item数量
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return _imageCaches.count;
+     return _imageCaches.count;
+    //return 1;
 }
 
 //复用每个cell的数据
@@ -101,19 +102,21 @@
            cell = [[AACollectionViewCell alloc] init];
        }
     cell.backgroundColor = [UIColor grayColor];
+    cell.imageView.image = [UIImage imageWithData:_imageCaches[indexPath.row]];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
     AACollectionViewCell *_cell = (AACollectionViewCell *)cell;
-    _cell.imageView.image = [UIImage imageWithData:_imageCaches[indexPath.row]];
+ //   _cell.imageView.image = [UIImage imageWithData:_imageCaches[indexPath.row]];
+//    _cell.imageView.image = [UIImage imageNamed:@"1"];
     [_cell.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.width.height.equalTo(_cell);
     }];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return self.view.frame.size;
+    return collectionView.frame.size;
 }
 
 
@@ -140,7 +143,8 @@
             
             [storageHelper cleanImageCache];
             [storageHelper writeImageInCache:weakSelf.imageCaches resultBlock:^{
-                NSLog(@"write success");
+                [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasCache"];
+                NSLog(@"pha--->write success");
             }];
         }];
     }else{
@@ -151,7 +155,8 @@
             
             [storageHelper cleanImageCache];
             [storageHelper writeImageInCache:weakSelf.imageCaches resultBlock:^{
-                NSLog(@"write success");
+                NSLog(@"Ala--->write success");
+                [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasCache"];
             }];
         }];;
     }
@@ -190,8 +195,7 @@
             }
         }];
     }
-    NSLog(@"finish checkHasNewAsset");
-    //读写功能已完成，10秒监听是否更新也完成，现有问题，加载datasource后视图无任何显示
+  //  NSLog(@"finish checkHasNewAsset");
 }
 
 
