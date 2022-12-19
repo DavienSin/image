@@ -43,9 +43,25 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
-  //  [self readImageCache];
+    if([self checkAuthStatus]){
+        
+        _imageCaches = [NSMutableArray array];
+        [self initCollection];
+        [self loadCacheImage];
+    }
     
-    [self loadCacheImage];
+  //  [self readImageCache];
+   // [self initCollection];
+}
+
+-(BOOL)checkAuthStatus{
+    if(@available(iOS 14,*)){//version>14
+        return [PHPhotoLibrary authorizationStatusForAccessLevel:PHAccessLevelReadWrite];
+    }else if(@available(iOS 8,*)){// 14 > version > 8
+        return [PHPhotoLibrary authorizationStatus];
+    }else{ // version < 8
+        return [ALAssetsLibrary authorizationStatus];
+    }
 }
 
 // 读取相册全部图片
@@ -62,7 +78,9 @@
 
 // 初始化collectionview
 -(void)initCollection{
-    NSLog(@"---------->%@",_imageCaches);
+    
+    
+    //NSLog(@"---------->%@",_imageCaches);
     CGFloat y = [UIDevice vg_navigationFullHeight];
     CGFloat h = [UIDevice vg_tabBarFullHeight];
     
@@ -121,6 +139,8 @@
 
 
 -(void)fetchAllAsset{
+    
+    //  需要对app是否授权获取图片进行操作
     [_AACollectionView.mj_header beginRefreshing];
     
     ImageHelper *imageHelper = [ImageHelper defaultHelper];
@@ -140,8 +160,8 @@
             weakSelf.imageCaches = [imageData mutableCopy];
             [weakSelf.AACollectionView reloadData];
             [weakSelf.AACollectionView.mj_header endRefreshing];
-            
             [storageHelper cleanImageCache];
+            weakSelf.navigationController.tabBarItem.badgeValue = nil;
             [storageHelper writeImageInCache:weakSelf.imageCaches resultBlock:^{
                 [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasCache"];
                 NSLog(@"pha--->write success");
@@ -157,6 +177,7 @@
             [storageHelper writeImageInCache:weakSelf.imageCaches resultBlock:^{
                 NSLog(@"Ala--->write success");
                 [[NSUserDefaults standardUserDefaults] setValue:@"yes" forKey:@"hasCache"];
+                weakSelf.navigationController.tabBarItem.badgeValue = nil;
             }];
         }];;
     }
@@ -195,7 +216,7 @@
             }
         }];
     }
-  //  NSLog(@"finish checkHasNewAsset");
+    NSLog(@"finish checkHasNewAsset");
 }
 
 

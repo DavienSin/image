@@ -35,9 +35,15 @@
     __block NSMutableArray *arr = [NSMutableArray array];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         for (PHAsset *asset in fetchResult) {
-            [manager requestImageDataAndOrientationForAsset:asset options:options resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, CGImagePropertyOrientation orientation, NSDictionary * _Nullable info) {
-                [arr addObject:imageData];
-            }];
+            if (@available(iOS 13, *)) {
+                [manager requestImageDataAndOrientationForAsset:asset options:options resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, CGImagePropertyOrientation orientation, NSDictionary * _Nullable info) {
+                    [arr addObject:imageData];
+                }];
+            } else {
+                [manager requestImageDataForAsset:asset options:options resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+                    [arr addObject:imageData];
+                }];
+            }
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             resultHandler(arr);
@@ -70,15 +76,16 @@
 
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     [queue addOperations:@[op] waitUntilFinished:NO];
-    [queue addBarrierBlock:^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            resultBlock(_group);
-            
-//            [self fetchAllAssetDataUsingAla:_group resultBlock:^(NSArray<NSData *> * _Nonnull imageData) {
-//                NSLog(@"%@",imageData);
-//            }];
-        });
-    }];
+    if (@available(iOS 13.0, *)) {
+        [queue addBarrierBlock:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                resultBlock(_group);
+            });
+        }];
+    } else {
+        // 这里还没实现
+        // Fallback on earlier versions
+    }
     NSLog(@"fetch all ala group");
 
 }

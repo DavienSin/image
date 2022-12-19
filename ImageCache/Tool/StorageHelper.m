@@ -53,11 +53,15 @@
         NSError *err = nil;
         //基本类型归档可用unarchivedObjectOfClasse，但涉及到自定义类的必须用unarchivedObjectOfClasses+自定义类里边所有数据类型的class
         NSSet *classSet = [NSSet setWithObjects:[NSArray class],[AAModel class],[NSData class], nil];
-        AAModel *result =  [NSKeyedUnarchiver unarchivedObjectOfClasses:classSet fromData:objectData error:&err];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            resultBlock(result,err);
-        });
+        if (@available(iOS 11.0, *)) {
+            AAModel *result =  [NSKeyedUnarchiver unarchivedObjectOfClasses:classSet fromData:objectData error:&err];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                resultBlock(result,err);
+            });
+        } else {
+            // Fallback on earlier versions
+        }
     });
 }
 
